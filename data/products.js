@@ -1,0 +1,27 @@
+// Демо-каталог ковров. В реальном проекте заменяется данными из CMS/БД.
+export const products = [
+  { slug: "sherst-klassik-bezh", name: "Ковёр «Классик» шерстяной", price: 349, oldPrice: 429, material: "Шерсть", form: "Прямоугольный", room: "Гостиная", color: "Бежевый", style: "Классика", pile: "Средний", sizes: ["1.5×2.3 м", "2×3 м", "2.5×3.5 м"], colors: ["#e4cfb4", "#a9743f"], rating: 4.8, inStock: true, isNew: false, hit: true, desc: "Плотный шерстяной ковёр с классическим орнаментом. Тёплый, износостойкий, подходит для гостиной и спальни." },
+  { slug: "viskoza-shik-serebro", name: "Ковёр «Шик» из вискозы", price: 519, material: "Вискоза", form: "Прямоугольный", room: "Гостиная", color: "Серый", style: "Модерн", pile: "Короткий", sizes: ["1.6×2.3 м", "2×3 м"], colors: ["#c9ccd1", "#8f939a"], rating: 4.9, inStock: true, isNew: true, hit: false, desc: "Роскошный ковёр из вискозы с эффектом шёлка. Мягкий блеск и приятная на ощупь поверхность." },
+  { slug: "pp-fentezi-sin", name: "Ковёр «Фэнтези» полипропилен", price: 149, material: "Полипропилен", form: "Прямоугольный", room: "Детская", color: "Синий", style: "Детский", pile: "Короткий", sizes: ["1.2×1.7 м", "1.5×2.3 м"], colors: ["#3b6cb0", "#8fb3e0"], rating: 4.6, inStock: true, isNew: false, hit: true, desc: "Яркий и практичный ковёр для детской. Легко чистится, не выгорает, гипоаллергенный." },
+  { slug: "krug-oazis-zelen", name: "Ковёр «Оазис» круглый", price: 219, material: "Полипропилен", form: "Круглый", room: "Детская", color: "Зелёный", style: "Модерн", pile: "Средний", sizes: ["Ø1.5 м", "Ø2 м"], colors: ["#4e8a5a", "#b9d8b0"], rating: 4.7, inStock: true, isNew: true, hit: false, desc: "Круглый ковёр с растительным узором. Создаёт уютную зону в детской или гостиной." },
+  { slug: "dorozhka-etno-krasn", name: "Дорожка «Этно»", price: 89, material: "Полипропилен", form: "Дорожка", room: "Прихожая", color: "Красный", style: "Этно", pile: "Короткий", sizes: ["0.8×2 м", "0.8×3 м", "1×4 м"], colors: ["#a83232", "#e0b48f"], rating: 4.5, inStock: true, isNew: false, hit: false, desc: "Прочная дорожка с этническим орнаментом для коридора и прихожей. Не скользит, легко моется." },
+  { slug: "sherst-vintazh-terrakot", name: "Ковёр «Винтаж» шерстяной", price: 599, oldPrice: 699, material: "Шерсть", form: "Прямоугольный", room: "Гостиная", color: "Терракотовый", style: "Винтаж", pile: "Средний", sizes: ["2×3 м", "2.5×3.5 м", "3×4 м"], colors: ["#b5623c", "#e4cfb4"], rating: 4.9, inStock: true, isNew: false, hit: true, desc: "Ковёр в винтажном стиле с эффектом лёгкой потёртости. Благородные тёплые оттенки." },
+  { slug: "viskoza-minimal-graf", name: "Ковёр «Минимал» графит", price: 389, material: "Вискоза", form: "Прямоугольный", room: "Кабинет", color: "Графитовый", style: "Минимализм", pile: "Короткий", sizes: ["1.6×2.3 м", "2×3 м"], colors: ["#3a3d42", "#6f7379"], rating: 4.7, inStock: false, isNew: false, hit: false, desc: "Лаконичный однотонный ковёр для современного интерьера и кабинета." },
+  { slug: "krug-solnce-zhelt", name: "Ковёр «Солнце» круглый", price: 179, material: "Полипропилен", form: "Круглый", room: "Детская", color: "Жёлтый", style: "Детский", pile: "Средний", sizes: ["Ø1.2 м", "Ø1.6 м"], colors: ["#e0b021", "#f2df9a"], rating: 4.6, inStock: true, isNew: true, hit: false, desc: "Солнечный круглый ковёр, который подарит настроение детской комнате." },
+  { slug: "sherst-orient-golub", name: "Ковёр «Ориент» шерсть", price: 649, material: "Шерсть", form: "Прямоугольный", room: "Гостиная", color: "Голубой", style: "Восточный", pile: "Средний", sizes: ["2×3 м", "2.5×3.5 м"], colors: ["#3f6f8a", "#cfe0e8"], rating: 4.9, inStock: true, isNew: false, hit: true, desc: "Восточный орнамент и глубокий голубой цвет. Настоящее украшение гостиной." },
+  { slug: "pp-loft-korich", name: "Ковёр «Лофт» полипропилен", price: 199, material: "Полипропилен", form: "Прямоугольный", room: "Гостиная", color: "Коричневый", style: "Лофт", pile: "Короткий", sizes: ["1.6×2.3 м", "2×3 м", "2.5×3.5 м"], colors: ["#6b4b32", "#a98a6b"], rating: 4.5, inStock: true, isNew: false, hit: false, desc: "Практичный ковёр в стиле лофт. Отлично вписывается в современные интерьеры." },
+  { slug: "viskoza-aqua-tirkiz", name: "Ковёр «Аква» вискоза", price: 459, material: "Вискоза", form: "Овальный", room: "Спальня", color: "Бирюзовый", style: "Модерн", pile: "Короткий", sizes: ["1.6×2.3 м", "2×3 м"], colors: ["#2fa39a", "#bfe6e2"], rating: 4.8, inStock: true, isNew: true, hit: false, desc: "Овальный ковёр с переливами бирюзы. Мягкий и лёгкий уход." },
+  { slug: "dorozhka-klassik-bezh", name: "Дорожка «Классик»", price: 99, material: "Полипропилен", form: "Дорожка", room: "Прихожая", color: "Бежевый", style: "Классика", pile: "Короткий", sizes: ["0.8×2 м", "1×3 м", "1×5 м"], colors: ["#d8c3a0", "#8f7550"], rating: 4.6, inStock: true, isNew: false, hit: false, desc: "Классическая дорожка нейтрального цвета для коридора любой длины." }
+];
+
+export const filterOptions = {
+  material: ["Шерсть", "Вискоза", "Полипропилен"],
+  form: ["Прямоугольный", "Круглый", "Овальный", "Дорожка"],
+  room: ["Гостиная", "Спальня", "Детская", "Прихожая", "Кабинет"],
+  color: ["Бежевый", "Серый", "Синий", "Зелёный", "Красный", "Терракотовый", "Графитовый", "Жёлтый", "Голубой", "Коричневый", "Бирюзовый"],
+  pile: ["Короткий", "Средний"]
+};
+
+export function getProduct(slug) {
+  return products.find((p) => p.slug === slug);
+}

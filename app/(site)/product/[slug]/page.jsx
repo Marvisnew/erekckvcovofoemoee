@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getProducts, getProduct } from "@/data/source";
 import CarpetThumb from "@/components/CarpetThumb";
 import ProductCard from "@/components/ProductCard";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export async function generateStaticParams() {
   const products = await getProducts();
@@ -58,9 +59,7 @@ export default async function ProductPage({ params }) {
             </div>
           )}
 
-          <button className="mt-6 w-full rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white hover:bg-brand-700 sm:w-auto">
-            Добавить в корзину
-          </button>
+          <AddToCartButton product={p} />
 
           <dl className="mt-6 grid grid-cols-2 gap-y-2 text-sm">
             {[["Материал", p.material], ["Форма", p.form], ["Комната", p.room], ["Цвет", p.color], ["Ворс", p.pile], ["Стиль", p.style]].map(([k, v]) => (

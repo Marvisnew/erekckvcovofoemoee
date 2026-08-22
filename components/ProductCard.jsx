@@ -1,7 +1,10 @@
+"use client";
 import Link from "next/link";
 import CarpetThumb from "./CarpetThumb";
+import { useCart } from "@/context/CartContext";
 
 export default function ProductCard({ p }) {
+  const { addToCart } = useCart();
   return (
     <Link
       href={`/product/${p.slug}`}
@@ -28,6 +31,15 @@ export default function ProductCard({ p }) {
           {p.inStock ? "В наличии" : "Под заказ"}
         </span>
       </div>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          addToCart(p);
+        }}
+        className="mt-3 w-full rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
+      >
+        Добавить в корзину
+      </button>
     </Link>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 const nav = [
   { href: "/catalog", label: "Каталог" },
@@ -11,6 +12,7 @@ const nav = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { toggleCart, count } = useCart();
   return (
     <header className="sticky top-0 z-40 bg-brand-50/95 backdrop-blur border-b border-brand-200">
       <div className="mx-auto max-w-6xl px-4">
@@ -31,16 +33,26 @@ export default function Header() {
             <Link href="/catalog" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
               В каталог
             </Link>
+            <button onClick={toggleCart} className="relative rounded-lg border border-brand-300 bg-white px-3 py-2 text-sm font-medium text-brand-800 hover:bg-brand-100">
+              Корзина
+              {count > 0 && <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white">{count}</span>}
+            </button>
           </div>
-          <button
-            aria-label="Меню"
-            className="md:hidden rounded p-2 text-brand-800"
-            onClick={() => setOpen((v) => !v)}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <button onClick={toggleCart} className="relative rounded-lg border border-brand-300 bg-white px-3 py-2 text-sm font-medium text-brand-800">
+              Корзина
+              {count > 0 && <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white">{count}</span>}
+            </button>
+            <button
+              aria-label="Меню"
+              className="rounded p-2 text-brand-800"
+              onClick={() => setOpen((v) => !v)}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </div>
         </div>
         {open && (
           <div className="md:hidden pb-4 flex flex-col gap-2">

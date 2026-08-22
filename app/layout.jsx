@@ -1,4 +1,8 @@
 import "./globals.css";
+import { CartProvider } from "@/context/CartContext";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
 
 export const metadata = {
   title: "КовёрБай — интернет-магазин ковров в Беларуси",
@@ -12,7 +16,16 @@ export const viewport = { width: "device-width", initialScale: 1 };
 export default function RootLayout({ children }) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <body>
+        <CartProvider>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <CartDrawer />
+        </CartProvider>
+      </body>
     </html>
   );
 }

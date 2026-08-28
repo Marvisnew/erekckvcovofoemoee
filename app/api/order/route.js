@@ -1,4 +1,5 @@
-import nodemailer from "nodemailer";
+const ORDER_EMAIL = process.env.ORDER_EMAIL || "debiltupoi52@gmail.com";
+const WEB3FORMS_ACCESS_KEY = process.env.WEB3FORMS_ACCESS_KEY;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
@@ -6,27 +7,31 @@ export default async function handler(req, res) {
   const { name, phone, email, address, comment } = req.body || {};
   if (!name || !phone || !address) return res.status(400).json({ error: "Missing fields" });
 
-  const to = process.env.ORDER_EMAIL || "debiltupoi52@gmail.com";
-  const from = process.env.SMTP_FROM || process.env.SMTP_USER || "store@example.com";
+  if (!WEB3FORMS_ACCESS_KEY) {
+    return res.status(500).json({ error: "WEB3FORMS_ACCESS_KEY is not configured. Add it to .env.local and redeploy." });
+  }
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+    const response = await fetch("https://api.web3forms.com/submissions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        from_name: name,
+        email: email || ORDER_EMAIL,
+        subject: `Новый заказ на КовёрБай — ${name}`,
+        message: `Новый заказ:\n\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email || "—"}\nАдрес: ${address}\nКомментарий: ${comment || "—"}`,
+        to: ORDER_EMAIL,
+      }),
     });
 
-    await transporter.sendMail({
-      from,
-      to,
-      subject: `Новый заказ на КовёрБай — ${name}`,
-      text: `Имя: ${name}\nТелефон: ${phone}\nEmail: ${email || "—"}\nАдрес: ${address}\nКомментарий: ${comment || "—"}`,
-      html: `<p><strong>Имя:</strong> ${name}</p><p><strong>Телефон:</strong> ${phone}</p><p><strong>Email:</strong> ${email || "—"}</p><p><strong>Адрес:</strong> ${address}</p><p><strong>Комментарий:</strong> ${comment || "—"}</p>`,
-    });
+    if (!response.ok) {
+      const error = await response.json();
+      console.error("Web3Forms error:", error);
+      return res.status(500).json({ error: "Mail failed" });
+    }
 
     return res.status(200).json({ ok: true });
   } catch (err) {

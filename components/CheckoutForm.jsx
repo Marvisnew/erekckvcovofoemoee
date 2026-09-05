@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
 
+const ORDER_EMAIL = process.env.NEXT_PUBLIC_ORDER_EMAIL || "debiltupoi52@gmail.com";
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
 export default function CheckoutForm({ onClose }) {
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", comment: "" });
   const [status, setStatus] = useState("idle");
@@ -8,15 +11,28 @@ export default function CheckoutForm({ onClose }) {
   const submit = async (e) => {
     e.preventDefault();
     setStatus("loading");
-    const res = await fetch("/api/order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    if (res.ok) {
+    try {
+      if (!WEB3FORMS_ACCESS_KEY) throw new Error("WEB3FORMS_ACCESS_KEY is not configured");
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          from_name: form.name,
+          email: form.email || ORDER_EMAIL,
+          subject: `Новый заказ на КовёрБай — ${form.name}`,
+          message: `Новый заказ:\n\nИмя: ${form.name}\nТелефон: ${form.phone}\nEmail: ${form.email || "—"}\nАдрес: ${form.address}\nКомментарий: ${form.comment || "—"}`,
+          to: ORDER_EMAIL,
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok || result.success === false) throw new Error(result.message || "Mail failed");
+
       setStatus("ok");
       setTimeout(onClose, 1500);
-    } else {
+    } catch (err) {
+      console.error("Order email error:", err);
       setStatus("error");
     }
   };
